@@ -1,91 +1,32 @@
+#include "2048.h"
 #include <bits/stdc++.h>
 using namespace std;
 
-#define N 4
-
-typedef array <array <int, N>, N> Board;
-
-bool CanMoveUp(const Board& board){
-    for (int y = 0; y < N; y++){
-        for (int x = 1; x < N; x++){
-            if (board[x][y] > 0 and board[x - 1][y] == 0){
-                return true;
-            }
-            if (board[x][y] != 0 and board[x][y] == board[x - 1][y]){
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
-bool CanMoveLeft(const Board& board){
-    for (int x = 0; x < N; x++){
-        for (int y = 1; y < N; y++){
-            if (board[x][y] > 0 and board[x][y - 1] == 0){
-                return true;
-            }
-            if (board[x][y] != 0 and board[x][y] == board[x][y - 1]){
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
-bool CanMoveDown(const Board& board){
-    for (int y = 0; y < N; y++){
-        for (int x = 1; x < N; x++){
-            if (board[x][y] == 0 and board[x - 1][y] > 0){
-                return true;
-            }
-            if (board[x][y] != 0 and board[x][y] == board[x - 1][y]){
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
-bool CanMoveRight(const Board& board){
-    for (int x = 0; x < N; x++){
-        for (int y = 1; y < N; y++){
-            if (board[x][y] == 0 and board[x][y - 1] > 0){
-                return true;
-            }
-            if (board[x][y] != 0 and board[x][y] == board[x][y - 1]){
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
 signed main(){
-    Board board;
-    for (int x = 0; x < N; x++){
-        for (int y = 0; y < N; y++){
+    Helper2048::Board board;
+    for (int x = 0; x < Helper2048::N; x++){
+        for (int y = 0; y < Helper2048::N; y++){
             cin >> board[x][y];
         }
     }
     bool lr = 0;
     while (board[0][0] >= 0){
         if (!lr){
-            if (CanMoveRight(board)){
+            if (Helper2048::CanMove(board, Helper2048::Right)){
                 lr = 1;
                 cout << "R" << endl;
-                for (int x = 0; x < N; x++){
-                    for (int y = 0; y < N; y++){
+                for (int x = 0; x < Helper2048::N; x++){
+                    for (int y = 0; y < Helper2048::N; y++){
                         cin >> board[x][y];
                     }
                 }
                 continue;
             }
-            if (CanMoveLeft(board)){
+            if (Helper2048::CanMove(board, Helper2048::Left)){
                 lr = 0;
                 cout << "L" << endl;
-                for (int x = 0; x < N; x++){
-                    for (int y = 0; y < N; y++){
+                for (int x = 0; x < Helper2048::N; x++){
+                    for (int y = 0; y < Helper2048::N; y++){
                         cin >> board[x][y];
                     }
                 }
@@ -93,40 +34,40 @@ signed main(){
             }
         }
         else{
-            if (CanMoveLeft(board)){
+            if (Helper2048::CanMove(board, Helper2048::Left)){
                 lr = 0;
                 cout << "L" << endl;
-                for (int x = 0; x < N; x++){
-                    for (int y = 0; y < N; y++){
+                for (int x = 0; x < Helper2048::N; x++){
+                    for (int y = 0; y < Helper2048::N; y++){
                         cin >> board[x][y];
                     }
                 }
                 continue;
             }
-            if (CanMoveRight(board)){
+            if (Helper2048::CanMove(board, Helper2048::Right)){
                 lr = 1;
                 cout << "R" << endl;
-                for (int x = 0; x < N; x++){
-                    for (int y = 0; y < N; y++){
+                for (int x = 0; x < Helper2048::N; x++){
+                    for (int y = 0; y < Helper2048::N; y++){
                         cin >> board[x][y];
                     }
                 }
                 continue;
             }
         }
-        if (CanMoveUp(board)){
+        if (Helper2048::CanMove(board, Helper2048::Up)){
             cout << "U" << endl;
-            for (int x = 0; x < N; x++){
-                for (int y = 0; y < N; y++){
+            for (int x = 0; x < Helper2048::N; x++){
+                for (int y = 0; y < Helper2048::N; y++){
                     cin >> board[x][y];
                 }
             }
             continue;
         }
-        if (CanMoveDown(board)){
+        if (Helper2048::CanMove(board, Helper2048::Down)){
             cout << "D" << endl;
-            for (int x = 0; x < N; x++){
-                for (int y = 0; y < N; y++){
+            for (int x = 0; x < Helper2048::N; x++){
+                for (int y = 0; y < Helper2048::N; y++){
                     cin >> board[x][y];
                 }
             }
