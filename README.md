@@ -3,8 +3,11 @@ tis a 2048 helper class
 
 ## Technical Details
 
-Tips: You can use `using namespace Helper2048;` to get rid of using `Helper2048::` everywhere.
+**Tips**:
+- You can use `using namespace Helper2048;` to get rid of using `Helper2048::` everywhere.
+- If you don't know how to use this helper, reading the [generator](2048_interactor.cpp) or the [model solution](2048_solution.cpp) should help.
 
+**Elements**:
 - `N`: Size of the board, must be larger than or equal to 3. It is currently constant (equals 4), but I might change it for future tasks.
 - `Board`: Alias/typedef of `array <array <int, N>, N>`.
 - `Up`, `Left`, `Down`, `Right`: Constants used to denote directions.
@@ -22,3 +25,4 @@ Tips: You can use `using namespace Helper2048;` to get rid of using `Helper2048:
 - [ ] Change type of `rando` to a class that has `operator()` returns an integer.
 - [ ] Change the (generating new cells after making a move) part to a class that has `operator()` returns a valid pair.
 - [ ] Make functions that get `move`, `score`, and `board` (should be easy).
+- [ ] Related to the second todo, split `Move()` into `Slide()` and then use the generator.
