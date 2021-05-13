@@ -22,8 +22,9 @@ tis a 2048 helper class
 
 ## TODO Lists
 
-- [ ] Change type of `rando` to a class that has `operator()` returns an integer.
-- [ ] Change the (generating new cells after making a move) part to a class that has `operator()` returns a valid pair.
-- [ ] Make functions that get `move`, `score`, and `board` (should be easy).
-- [ ] Related to the second todo, split `Move()` into `Slide()` and then use the generator.
+- [x] ~~Change type of `rando` to a class that has `operator()` returns an integer.~~ Turns out that we only need the second bullet point.
+- [x] Change the (generating new cells after making a move) part to a class that has `void operator(Board& board)` change the board.
+- [x] Make functions that get `move`, `score`, and `board` (should be easy).
+- [x] ~~Related to the second bullet point, split `Move()` into `Slide()` and then use the generator.~~ Unusable because Slide does involve computing `move` and `score`, ưhich í the whole point.
 - [ ] Add debug mode.
+- [x] Add initialization with given `move`, `score` and `board`.
