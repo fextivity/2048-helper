@@ -26,3 +26,4 @@ tis a 2048 helper class
 - [ ] Change the (generating new cells after making a move) part to a class that has `operator()` returns a valid pair.
 - [ ] Make functions that get `move`, `score`, and `board` (should be easy).
 - [ ] Related to the second todo, split `Move()` into `Slide()` and then use the generator.
+- [ ] Add debug mode.
