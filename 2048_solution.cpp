@@ -1,14 +1,19 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+#include <bits/stdc++.h>
+using namespace std;
+
 namespace Helper2048{
+    /* Notes
+     * Tgen must has void operator(Board& board)
+     */
+
     const int N = 4;
 
     typedef array <array <int, N>, N> Board;
 
     const int Up = 0, Left = 1, Down = 2, Right = 3;
-
-    int Randt(int l, int r, mt19937& rando);
 
     bool HasLegalMove(const Board& board);
 
@@ -24,12 +29,25 @@ namespace Helper2048{
         
         Game();
 
-        Board Init(mt19937& rando);
+        Game(int move, int score, const Board& board);
 
-        Board Move(int direction, mt19937& rando);
+        int GetMove();
+
+        int GetScore();
+
+        Board GetBoard();
+
+        template <class Tgen>
+        Board Init(const Tgen& gen);
+
+        template <class Tgen>
+        Board Move(int direction, const Tgen& gen);
     };
 
-    int Randt(int l, int r, mt19937& rando){
+
+
+    template <typename Trng>
+    int Randt(int l, int r, Trng& rando){
         return rando() % (r - l + 1) + l;
     }
 
@@ -118,9 +136,33 @@ namespace Helper2048{
 
     Game::Game(){
         assert(N >= 3);
+        move = 0; score = 0;
+        for (int x = 0; x < N; x++){
+            for (int y = 0; y < N; y++){
+                board[x][y] = 0;
+            }
+        }
     }
 
-    Board Game::Init(mt19937& rando){
+    Game::Game(int move, int score, const Board& board){
+        assert(N >= 3);
+        this->move = move; this->score = score; this->board = board;
+    }
+
+    int Game::GetMove(){
+        return move;
+    }
+
+    int Game::GetScore(){
+        return score;
+    }
+
+    Board Game::GetBoard(){
+        return board;
+    }
+
+    template <class Tgen>
+    Board Game::Init(const Tgen& gen){
         // Initialize board
         move = 0; score = 0;
         for (int x = 0; x < N; x++){
@@ -129,20 +171,13 @@ namespace Helper2048{
             }
         }
         // Add the first two elements.
-        pair <int, int> firstPos, secondPos;
-        firstPos = make_pair(Randt(0, N - 1, rando), Randt(0, N - 1, rando));
-        board[firstPos.first][firstPos.second] = Randt(1, 2, rando) * 2;
-        while (1){
-            secondPos = make_pair(Randt(0, N - 1, rando), Randt(0, N - 1, rando));
-            if (secondPos != firstPos){
-                break;
-            }
-        }
-        board[secondPos.first][secondPos.second] = Randt(1, 2, rando) * 2;
+        gen(board);
+        gen(board);
         return board;
     }
 
-    Board Game::Move(int direction, mt19937& rando){
+    template <class Tgen>
+    Board Game::Move(int direction, const Tgen& gen){
         if (CanMove(board, direction) == false){
             for (int x = 0; x < N; x++){
                 for (int y = 0; y < N; y++){
@@ -253,18 +288,7 @@ namespace Helper2048{
             assert(false);
         }
         // Insert a new number
-        {
-            vector <pair <int, int>> candidates;
-            for (int x = 0; x < N; x++){
-                for (int y = 0; y < N; y++){
-                    if (board[x][y] == 0){
-                        candidates.push_back(make_pair(x, y));
-                    }
-                }
-            }
-            shuffle(candidates.begin(), candidates.end(), rando);
-            board[candidates[0].first][candidates[0].second] = Randt(1, 2, rando) * 2;
-        }
+        gen(board);
         if (move > MaxMove){
             for (int x = 0; x < N; x++){
                 for (int y = 0; y < N; y++){
