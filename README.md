@@ -28,5 +28,7 @@ tis a 2048 helper class
 - [x] Change the (generating new cells after making a move) part to a class that has `void operator(Board& board)` change the board.
 - [x] Make functions that get `move`, `score`, and `board` (should be easy).
 - [x] ~~Related to the second bullet point, split `Move()` into `Slide()` and then use the generator.~~ Unusable because Slide does involve computing `move` and `score`.
-- [ ] Add debug mode.
+- [x] ~~Add debug mode.~~ Too hard, because I am a dipshit and also:
+  - First I tried to make debug available on both stdout and file, but then two of them mixes together and file need a whole new ofstream so I just scrapped stdout.
+  - Track which object has debug or not + do not erase whole content of log file when declare new object + erase old content = fuck off.
 - [x] Add initialization with given `move`, `score` and `board`.
