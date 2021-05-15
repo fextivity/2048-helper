@@ -1,9 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#include <bits/stdc++.h>
-using namespace std;
-
 namespace Helper2048{
     /* Notes
      * Tgen must has void operator(Board& board)
